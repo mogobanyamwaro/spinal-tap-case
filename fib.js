@@ -1,26 +1,17 @@
-function spinalCase(str) {
-  const words = [];
-  let word = "";
-  for (c of str) {
-    if (c === " " || c === "_" || c === "-") {
-      words.push(word);
-      word = "";
-    } else if (c >= "A" && c <= "Z" && !word.length) {
-      word = c.toLowerCase();
-    } else if (c >= "A" && c <= "Z" && word.length) {
-      words.push(word);
-      word = c.toLowerCase();
-    } else {
-      word += c;
-    }
+function caesarCipher(str) {
+  const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+  const removeNonLetters = str
+    .replace(/[^\w\s]/g, "")
+    .replace(/\d/g, "")
+    .toLowerCase();
+  let result = "";
+  for (let i = 0; i < removeNonLetters.length; i++) {
+    const char = removeNonLetters[i];
+    const index = alphabet.indexOf(char);
+    const newIndex = (index + 13) % 26;
+    result += alphabet[newIndex];
   }
-  if (word.length) {
-    words.push(word);
-  }
-  return words.join("-");
+  return result;
 }
-console.log(spinalCase("This Is Spinal Tap"));
-console.log(spinalCase("thisIsSpinalTap"));
-console.log(spinalCase("The_Andy_Griffith_Show"));
-console.log(spinalCase("Teletubbies say Eh-oh"));
-console.log(spinalCase("AllThe-small Things"));
+
+console.log(caesarCipher("a"));
