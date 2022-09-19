@@ -1,17 +1,35 @@
-function caesarCipher(str) {
-  const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-  const removeNonLetters = str
-    .replace(/[^\w\s]/g, "")
-    .replace(/\d/g, "")
-    .toLowerCase();
-  let result = "";
-  for (let i = 0; i < removeNonLetters.length; i++) {
-    const char = removeNonLetters[i];
-    const index = alphabet.indexOf(char);
-    const newIndex = (index + 13) % 26;
-    result += alphabet[newIndex];
-  }
-  return result;
-}
+const moneyDict = {
+  PENNY: 1,
+  NICKEL: 5,
+  DIME: 10,
+  QUARTER: 25,
+  ONE: 100,
+  FIVE: 500,
+  TEN: 1000,
+  TWENTY: 2000,
+  "ONE HUNDRED": 10000,
+};
 
-console.log(caesarCipher("a"));
+function checkCashRegister(price, cash, cid) {
+  let amtLeftTopay = Math.round((cash - price) * 100);
+  let cidObje = cid.reduce((acc, [moneyType, amount]) => {
+    return {
+      ...acc,
+      [moneyType]: Math.round(amount * 100),
+    };
+  }, {});
+  return cidObje;
+}
+console.log(
+  checkCashRegister(19.5, 20.0, [
+    ["PENNY", 1.01],
+    ["NICKEL", 2.05],
+    ["DIME", 3.1],
+    ["QUARTER", 4.25],
+    ["ONE", 90.0],
+    ["FIVE", 55.0],
+    ["TEN", 20.0],
+    ["TWENTY", 60.0],
+    ["ONE HUNDRED", 100.0],
+  ])
+);
